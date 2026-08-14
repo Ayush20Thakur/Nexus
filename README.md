@@ -200,10 +200,16 @@ For Vercel/serverless, use the Supabase pooler URI for `DATABASE_URL` if your
 Supabase project provides one. Do not put database credentials in frontend
 environment variables.
 
+Backend deployment URL:
+
+```text
+https://nexus-3scs.vercel.app
+```
+
 After backend deployment, update the frontend Vercel project:
 
 ```text
-VITE_API_URL=https://<your-backend-vercel-domain>/api
+VITE_API_URL=https://nexus-3scs.vercel.app/api
 ```
 
 Redeploy the frontend after changing `VITE_API_URL`.

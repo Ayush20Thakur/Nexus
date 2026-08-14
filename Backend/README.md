@@ -78,10 +78,16 @@ For serverless deployment, prefer the Supabase Supavisor/pooler PostgreSQL URI
 for `DATABASE_URL` when available. Keep database credentials, service role keys,
 and JWT secrets only in Vercel environment variables.
 
+Deployed backend URL:
+
+```text
+https://nexus-3scs.vercel.app
+```
+
 After the backend is deployed, set the frontend Vercel project variable:
 
 ```text
-VITE_API_URL=https://<your-backend-vercel-domain>/api
+VITE_API_URL=https://nexus-3scs.vercel.app/api
 ```
 
 Then redeploy the frontend project.
