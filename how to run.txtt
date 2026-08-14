@@ -1,0 +1,141 @@
+NEXUS local run guide
+=====================
+
+Project folders
+---------------
+Backend:
+C:\Users\zians\Downloads\New Tactive\Backend
+
+Frontend:
+C:\Users\zians\Downloads\New Tactive\Fronted
+
+Security notes
+--------------
+Do not paste DATABASE_URL, SUPABASE_DB_URL, Supabase service role keys, JWT
+secrets, or database passwords into this file.
+
+The PostgreSQL database password is not the website login password.
+The website login uses Supabase Auth.
+
+Required environment files
+--------------------------
+Backend:
+C:\Users\zians\Downloads\New Tactive\Backend\.env
+
+Required backend variables:
+DATABASE_URL or SUPABASE_DB_URL
+SUPABASE_URL
+SUPABASE_ANON_KEY
+SUPABASE_JWT_SECRET or SUPABASE_JWKS_URL
+ENVIRONMENT=development
+ALLOW_DEV_AUTH_FALLBACK=false
+
+Frontend:
+C:\Users\zians\Downloads\New Tactive\Fronted\.env
+
+Required frontend variables:
+VITE_SUPABASE_URL=https://hwdpnsvwhszrijxzylem.supabase.co
+VITE_SUPABASE_ANON_KEY=<your public Supabase anon or publishable key>
+VITE_API_URL=/api
+
+Install backend dependencies
+----------------------------
+Open PowerShell:
+
+cd "C:\Users\zians\Downloads\New Tactive\Backend"
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+
+Run database migration
+----------------------
+cd "C:\Users\zians\Downloads\New Tactive\Backend"
+.\.venv\Scripts\python.exe -m alembic upgrade head
+
+Seed application data
+---------------------
+cd "C:\Users\zians\Downloads\New Tactive\Backend"
+.\.venv\Scripts\python.exe -m app.database.seed
+
+Provision or reset Supabase Auth demo logins
+--------------------------------------------
+cd "C:\Users\zians\Downloads\New Tactive\Backend"
+$env:NEXUS_DEMO_PASSWORD='password'
+.\.venv\Scripts\python.exe -m app.database.auth_seed
+Remove-Item Env:\NEXUS_DEMO_PASSWORD
+
+Start backend localhost API
+---------------------------
+cd "C:\Users\zians\Downloads\New Tactive\Backend"
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+
+Backend URL:
+http://127.0.0.1:8000
+
+Backend health check:
+http://127.0.0.1:8000/api/health
+
+Install frontend dependencies
+-----------------------------
+Open a second PowerShell window:
+
+cd "C:\Users\zians\Downloads\New Tactive\Fronted"
+npm install
+
+Start frontend localhost app
+----------------------------
+cd "C:\Users\zians\Downloads\New Tactive\Fronted"
+npm run dev -- --host 127.0.0.1
+
+Frontend URL:
+http://127.0.0.1:3000
+
+Usable demo login accounts
+--------------------------
+Admin:
+email: zian@nexus.corp
+password: password
+
+Higher authority / manager:
+email: authority@nexus.corp
+password: password
+
+Research manager:
+email: dr.vance@nexus.corp
+password: password
+
+Use the full email exactly. For example, zian@nexus.cor is invalid because it is
+missing the final "p".
+
+Run backend tests
+-----------------
+cd "C:\Users\zians\Downloads\New Tactive\Backend"
+.\.venv\Scripts\python.exe -m pytest -q
+
+Run frontend build check
+------------------------
+cd "C:\Users\zians\Downloads\New Tactive\Fronted"
+npm run build
+
+Expected localhost flow
+-----------------------
+1. Start backend on http://127.0.0.1:8000.
+2. Confirm /api/health reports database status ok.
+3. Start frontend on http://127.0.0.1:3000.
+4. Login with one of the demo accounts above.
+5. Inventory, requests, approvals, fulfillment, reports, policies, settings,
+   Copilot, admin, and AI engineering screens use backend API data.
+
+Troubleshooting
+---------------
+If login says invalid credentials:
+Run the auth seed command above, or create/reset the matching Supabase Auth user
+in Authentication > Users.
+
+If login succeeds but the app says the user is not registered:
+Run the backend seed command again, then run the auth seed command.
+
+If /api/health says the database is not connected:
+Check Backend\.env and verify DATABASE_URL or SUPABASE_DB_URL is a PostgreSQL URI.
+
+If port 8000 is already in use:
+Stop the existing process, or start the backend on another port and update the
+frontend API base URL intentionally.

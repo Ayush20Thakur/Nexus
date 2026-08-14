@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #141313;
+    color: #e5e2e1;
+    overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  #root {
+    height: 100%;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* === Material Symbols === */
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    user-select: none;
+  }
+
+  /* === Glass Layers === */
+  .glass-level-1 {
+    background: rgba(28, 27, 27, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-level-2 {
+    background: rgba(43, 42, 42, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .glass-level-3 {
+    background: rgba(20, 19, 19, 0.8);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  /* === Ambient Background Orbs === */
+  .ambient-orb-primary {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(228, 226, 227, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    filter: blur(60px);
+  }
+
+  .ambient-orb-accent {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 198, 199, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+    filter: blur(80px);
+  }
+
+  /* === Status Chip === */
+  .status-chip {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-label-caps font-label-caps uppercase tracking-wider;
+    backdrop-filter: blur(8px);
+  }
+
+  .status-chip-success {
+    @apply status-chip bg-success-green/10 text-success-green border border-success-green/20;
+  }
+
+  .status-chip-warning {
+    @apply status-chip bg-warning-amber/10 text-warning-amber border border-warning-amber/20;
+  }
+
+  .status-chip-error {
+    @apply status-chip bg-error-red/10 text-error-red border border-error-red/20;
+  }
+
+  .status-chip-neutral {
+    @apply status-chip bg-surface-container text-on-surface-variant border border-outline-variant/20;
+  }
+
+  .status-chip-ai {
+    @apply status-chip bg-ai-accent/10 text-ai-accent border border-ai-accent/20;
+  }
+
+  /* === Buttons === */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+      bg-primary text-on-primary font-card-title text-card-title
+      hover:bg-primary-fixed transition-all duration-200
+      shadow-glow-primary hover:shadow-[0_0_20px_rgba(228,226,227,0.25)]
+      active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-primary/40;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+      bg-surface-container text-on-surface font-card-title text-card-title
+      hover:bg-surface-variant transition-all duration-200
+      shadow-sm border border-outline-variant/20
+      active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-outline/30;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg
+      text-on-surface-variant font-body-sm text-body-sm
+      hover:bg-surface-variant hover:text-on-surface transition-all duration-200
+      focus:outline-none focus:ring-2 focus:ring-outline/30;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+      bg-error-container/10 text-error-red font-card-title text-card-title
+      hover:bg-error-container/20 border border-error-red/20 transition-all duration-200
+      active:scale-[0.98] focus:outline-none;
+  }
+
+  .btn-success {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+      bg-success-green/10 text-success-green font-card-title text-card-title
+      hover:bg-success-green/20 border border-success-green/20 transition-all duration-200
+      active:scale-[0.98] focus:outline-none;
+  }
+
+  .btn-icon {
+    @apply w-9 h-9 flex items-center justify-center rounded-full
+      text-on-surface-variant hover:bg-surface-variant hover:text-on-surface
+      transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-outline/30;
+  }
+
+  /* === Input Fields === */
+  .input-glass {
+    @apply w-full bg-surface-container-lowest text-on-surface font-body-md text-body-md
+      rounded-lg py-[14px] px-4 outline-none border border-outline-variant/20
+      focus:ring-1 focus:ring-primary/50 focus:border-primary/40
+      transition-shadow placeholder:text-on-surface-variant/50;
+  }
+
+  /* === Card variants === */
+  .card-glass {
+    @apply bg-surface-container rounded-xl border border-outline-variant/10
+      shadow-sm overflow-hidden;
+  }
+
+  .card-glass-high {
+    @apply bg-surface-container-high rounded-xl border border-outline-variant/10
+      shadow-glass overflow-hidden;
+  }
+
+  /* === Sidebar Nav Link === */
+  .nav-link {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-lg
+      text-on-surface-variant font-body-md text-body-md
+      hover:bg-surface-variant hover:text-on-surface
+      transition-all duration-200 cursor-pointer;
+  }
+
+  .nav-link-active {
+    @apply nav-link bg-secondary-container text-on-secondary-container font-semibold;
+  }
+
+  /* === Table === */
+  .nexus-table {
+    @apply w-full;
+  }
+
+  .nexus-table th {
+    @apply px-4 py-3 text-left text-label-caps font-label-caps text-on-surface-variant
+      uppercase tracking-wider border-b border-outline-variant/10;
+  }
+
+  .nexus-table td {
+    @apply px-4 py-3 text-body-md font-body-md text-on-surface
+      border-b border-white/[0.03];
+  }
+
+  .nexus-table tr:hover td {
+    @apply bg-surface-container-high/50;
+  }
+
+  /* === Progress Bar === */
+  .progress-track {
+    @apply w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden;
+  }
+
+  .progress-fill-success {
+    @apply h-full bg-success-green rounded-full shadow-glow-success;
+  }
+
+  .progress-fill-warning {
+    @apply h-full bg-warning-amber rounded-full;
+  }
+
+  .progress-fill-error {
+    @apply h-full bg-error-red rounded-full shadow-glow-error;
+  }
+
+  .progress-fill-primary {
+    @apply h-full bg-primary rounded-full;
+  }
+
+  /* === AI Pulse Effect === */
+  @keyframes ai-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200, 198, 199, 0.15); }
+    50% { box-shadow: 0 0 0 4px rgba(200, 198, 199, 0.05); }
+  }
+
+  .ai-pulse {
+    animation: ai-pulse 2.5s ease-in-out infinite;
+  }
+
+  /* === Skeleton Loading === */
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      rgba(53, 52, 52, 0.4) 25%,
+      rgba(58, 57, 57, 0.6) 50%,
+      rgba(53, 52, 52, 0.4) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 0.375rem;
+  }
+
+  /* === Command Palette === */
+  .command-overlay {
+    @apply fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm
+      flex items-start justify-center pt-[15vh];
+  }
+
+  .command-panel {
+    @apply w-full max-w-xl glass-level-3 rounded-2xl overflow-hidden
+      shadow-[0_24px_80px_rgba(0,0,0,0.6)] animate-slide-in;
+  }
+}
+
+@layer utilities {
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #e4e2e3, #c8c6c7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .border-glass {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .border-glass-strong {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Critical accent line for approval cards */
+  .accent-line-error {
+    @apply absolute top-0 left-0 w-1 h-full bg-error-red;
+  }
+
+  .accent-line-warning {
+    @apply absolute top-0 left-0 w-1 h-full bg-warning-amber;
+  }
+
+  .accent-line-success {
+    @apply absolute top-0 left-0 w-1 h-full bg-success-green;
+  }
+
+  .accent-line-primary {
+    @apply absolute top-0 left-0 w-1 h-full bg-primary;
+  }
+}

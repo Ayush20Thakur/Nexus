@@ -1,0 +1,1 @@
+{'status': 'AT_RISK', 'readinessScore': 60, 'queuePressure': 18, 'automationRate': 78, 'avgAiConfidence': 91, 'nextActions': 3}

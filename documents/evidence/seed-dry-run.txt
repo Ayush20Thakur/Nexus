@@ -1,0 +1,1 @@
+{'status': 'dry_run_ok', 'counts': {'roles': 4, 'users': 6, 'inventory_items': 25, 'operational_requests': 25, 'approvals': 13, 'fulfillment_orders': 13, 'decision_rules': 4, 'ai_models': 4, 'engineering_requests': 2, 'policies': 4, 'audit_events': 15, 'reports': 10, 'copilot_messages': 1}}
