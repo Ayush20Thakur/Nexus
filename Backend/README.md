@@ -22,6 +22,8 @@ Required database/auth variables:
 - `SUPABASE_URL`
 - `SUPABASE_ANON_KEY`
 - `SUPABASE_JWT_SECRET` or `SUPABASE_JWKS_URL`
+- `FRONTEND_URL=https://nexus-xi-eight-21.vercel.app`
+- `CORS_ORIGINS=https://nexus-xi-eight-21.vercel.app`
 - `ALLOW_DEV_AUTH_FALLBACK=false`
 
 ## Commands
@@ -46,6 +48,43 @@ Tests:
 ```powershell
 .\.venv\Scripts\python.exe -m pytest -q
 ```
+
+## Vercel Backend Deployment
+
+Deploy this backend as a separate Vercel project using `Backend` as the root
+directory. The Vercel entrypoint is `api/index.py`, and `vercel.json` routes all
+requests to the FastAPI app.
+
+Required Vercel backend environment variables:
+
+```text
+ENVIRONMENT=production
+APP_NAME=NEXUS Backend
+API_PREFIX=/api
+FRONTEND_URL=https://nexus-xi-eight-21.vercel.app
+CORS_ORIGINS=https://nexus-xi-eight-21.vercel.app
+SUPABASE_URL=<your Supabase project URL>
+SUPABASE_ANON_KEY=<your Supabase anon or publishable key>
+DATABASE_URL=<your Supabase PostgreSQL URI>
+SUPABASE_JWKS_URL=<your Supabase JWKS URL>
+JWT_AUDIENCE=authenticated
+JWT_ALGORITHMS=RS256,ES256,HS256
+ALLOW_DEV_AUTH_FALLBACK=false
+DB_POOL_SIZE=1
+DB_MAX_OVERFLOW=1
+```
+
+For serverless deployment, prefer the Supabase Supavisor/pooler PostgreSQL URI
+for `DATABASE_URL` when available. Keep database credentials, service role keys,
+and JWT secrets only in Vercel environment variables.
+
+After the backend is deployed, set the frontend Vercel project variable:
+
+```text
+VITE_API_URL=https://<your-backend-vercel-domain>/api
+```
+
+Then redeploy the frontend project.
 
 ## Demo Logins
 

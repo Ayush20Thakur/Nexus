@@ -165,6 +165,49 @@ Backend URL:
 http://127.0.0.1:8000
 ```
 
+## Vercel Deployment
+
+The deployed frontend is:
+
+```text
+https://nexus-xi-eight-21.vercel.app
+```
+
+Deploy the backend as a separate Vercel project from the `Backend` root
+directory. The repository includes `Backend/api/index.py` and
+`Backend/vercel.json` so Vercel can run the FastAPI app as a Python function.
+
+Backend Vercel environment variables:
+
+```text
+ENVIRONMENT=production
+APP_NAME=NEXUS Backend
+API_PREFIX=/api
+FRONTEND_URL=https://nexus-xi-eight-21.vercel.app
+CORS_ORIGINS=https://nexus-xi-eight-21.vercel.app
+SUPABASE_URL=<your Supabase project URL>
+SUPABASE_ANON_KEY=<your Supabase anon or publishable key>
+DATABASE_URL=<your Supabase PostgreSQL URI>
+SUPABASE_JWKS_URL=<your Supabase JWKS URL>
+JWT_AUDIENCE=authenticated
+JWT_ALGORITHMS=RS256,ES256,HS256
+ALLOW_DEV_AUTH_FALLBACK=false
+DB_POOL_SIZE=1
+DB_MAX_OVERFLOW=1
+```
+
+For Vercel/serverless, use the Supabase pooler URI for `DATABASE_URL` if your
+Supabase project provides one. Do not put database credentials in frontend
+environment variables.
+
+After backend deployment, update the frontend Vercel project:
+
+```text
+VITE_API_URL=https://<your-backend-vercel-domain>/api
+```
+
+Redeploy the frontend after changing `VITE_API_URL`.
+
 ## Demo Authentication
 
 The database seed creates NEXUS application users and roles. Browser login is
